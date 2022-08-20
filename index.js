@@ -35,7 +35,7 @@ app.get("/api/usernamecheck/:username", (req, res) => {
 app.post("/api/addaccount", (req, res) => {
     bcrypt.hash(req.body.password, 10, (err, hash) => {
         sequelize.query(`INSERT INTO users (username, password_hash, picture) VALUES ('${req.body.username}', '${hash}', 'https://freesvg.org/img/Colorful-Bird-Silhouette.png')`)
-    .then(dbRes => {res.status(201).send(true)})
+    .then(dbRes => {res.status(201).send(hash)})
     })
 })
 
