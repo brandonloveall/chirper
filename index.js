@@ -13,6 +13,7 @@ const sequelize = new Sequelize(process.env.POSTGRES, {
     }
 })
 const bcrypt = require("bcrypt")
+const e = require("express")
 
 app.use(express.static(path.join(__dirname, "build")))
 app.use(cors())
@@ -32,10 +33,31 @@ app.get("/api/usernamecheck/:username", (req, res) => {
     sequelize.query(`SELECT username FROM users WHERE username = '${req.params.username}'`).then((dbRes) => {res.status(200).send(dbRes[0])})
 })
 
-app.post("/api/addaccount", (req, res) => {
+app.post("/api/signup", (req, res) => {
     bcrypt.hash(req.body.password, 10, (err, hash) => {
         sequelize.query(`INSERT INTO users (username, password_hash, picture) VALUES ('${req.body.username}', '${hash}', 'https://freesvg.org/img/Colorful-Bird-Silhouette.png')`)
-    .then(dbRes => {res.status(201).send(hash)})
+    .then(dbRes => {res.status(201).send({hash: hash, icon: "https://freesvg.org/img/Colorful-Bird-Silhouette.png"})})
+    })
+})
+
+//LOGIN API
+
+app.get("/api/login", (req, res) => {
+    let password = req.query.password
+    let username = req.query.username
+    sequelize.query(`SELECT * FROM users WHERE username = '${username}'`)
+    .then(dbRes => {
+        if(dbRes[0].length !== 0){
+            bcrypt.compare(password, dbRes[0][0].password_hash).then((result) => {
+                if(result){
+                    res.status(200).send({hash: dbRes[0][0].password_hash, icon: dbRes[0][0].picture})
+                }else{
+                    res.status(401).send("incorrect password")
+                }
+            })
+        }else if(dbRes[0].length === 0){
+            res.status(401).send("user not found")
+        }
     })
 })
 
