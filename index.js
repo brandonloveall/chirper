@@ -50,13 +50,13 @@ app.get("/api/login", (req, res) => {
         if(dbRes[0].length !== 0){
             bcrypt.compare(password, dbRes[0][0].password_hash).then((result) => {
                 if(result){
-                    res.status(200).send({hash: dbRes[0][0].password_hash, icon: dbRes[0][0].picture})
+                    res.status(200).send({icon: dbRes[0][0].picture, username: dbRes[0][0].username})
                 }else{
-                    res.status(401).send("incorrect password")
+                    res.status(200).send("incorrect password")
                 }
             })
         }else if(dbRes[0].length === 0){
-            res.status(401).send("user not found")
+            res.status(200).send("user not found")
         }
     })
 })
