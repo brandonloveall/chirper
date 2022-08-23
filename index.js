@@ -12,7 +12,7 @@ const sequelize = new Sequelize(process.env.DATABASE_URL, {
         }
     }
 })
-const bcrypt = require("bcrypt")
+const bcrypt = require("bcryptjs")
 const e = require("express")
 
 app.use(express.static(path.join(__dirname, "build")))
@@ -49,6 +49,7 @@ app.get("/api/login", (req, res) => {
     .then(dbRes => {
         if(dbRes[0].length !== 0){
             bcrypt.compare(password, dbRes[0][0].password_hash).then((result) => {
+                console.log(result)
                 if(result){
                     res.status(200).send({icon: dbRes[0][0].picture, username: dbRes[0][0].username})
                 }else{
