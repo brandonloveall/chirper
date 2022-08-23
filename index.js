@@ -1,10 +1,10 @@
-require("dotenv").config({debug: true})
+require("dotenv").config({path: path.resolve})
 const express = require("express")
 const app = express()
 const path = require("path")
 const cors = require("cors")
 const {Sequelize} = require("sequelize")
-const sequelize = new Sequelize(process.env.POSTGRES, {
+const sequelize = new Sequelize(process.env.DATABASE_URL, {
     dialect: "postgres",
     dialectOptions: {
         ssl: {
