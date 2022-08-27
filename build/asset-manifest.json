@@ -1,19 +1,24 @@
 {
   "files": {
-    "main.css": "/static/css/main.2ba7d2c9.css",
-    "main.js": "/static/js/main.27e21913.js",
+    "main.css": "/static/css/main.6d346d45.css",
+    "main.js": "/static/js/main.d6bc1c05.js",
+    "static/media/istockphoto-1066158612-612x612.jpg": "/static/media/istockphoto-1066158612-612x612.984f481478a1de78cae3.jpg",
     "static/media/bird-svgrepo-com.svg": "/static/media/bird-svgrepo-com.7a0d35633edcd6a06eac78f43edd60d9.svg",
     "static/media/gear-svgrepo-com.svg": "/static/media/gear-svgrepo-com.fd0ff9e11f83d9a9967c4641aef8798e.svg",
+    "static/media/heart-svgrepo-com.svg": "/static/media/heart-svgrepo-com.4e0846b50d43c51cfeb407e113542275.svg",
     "static/media/home-svgrepo-com.svg": "/static/media/home-svgrepo-com.4b84471ee9ce54a050e44460a5ebad91.svg",
+    "static/media/heart-svgrepo-com (1).svg": "/static/media/heart-svgrepo-com (1).f8cc1a36909061337783a857f1d18c52.svg",
     "static/media/music-note-svgrepo-com.svg": "/static/media/music-note-svgrepo-com.b9a7e9c34f4fb9101b99c50cf4d41cb5.svg",
+    "static/media/trash-can-svgrepo-com.svg": "/static/media/trash-can-svgrepo-com.00e769fd8ef904551f9b54708024d2b3.svg",
+    "static/media/pencil-svgrepo-com.svg": "/static/media/pencil-svgrepo-com.686d3bba138c654e6ba81dd81fd2e3a4.svg",
     "index.html": "/index.html",
     "static/media/icons8-search.svg": "/static/media/icons8-search.e0b696f327468be32ac4c5e19adcf6ce.svg",
     "static/media/person-svgrepo-com.svg": "/static/media/person-svgrepo-com.48e67e5df092a074dd2bb4e34af69f16.svg",
-    "main.2ba7d2c9.css.map": "/static/css/main.2ba7d2c9.css.map",
-    "main.27e21913.js.map": "/static/js/main.27e21913.js.map"
+    "main.6d346d45.css.map": "/static/css/main.6d346d45.css.map",
+    "main.d6bc1c05.js.map": "/static/js/main.d6bc1c05.js.map"
   },
   "entrypoints": [
-    "static/css/main.2ba7d2c9.css",
-    "static/js/main.27e21913.js"
+    "static/css/main.6d346d45.css",
+    "static/js/main.d6bc1c05.js"
   ]
 }

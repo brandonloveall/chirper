@@ -35,7 +35,7 @@ app.get("/api/usernamecheck/:username", (req, res) => {
 
 app.post("/api/signup", (req, res) => {
     bcrypt.hash(req.body.password, 10, (err, hash) => {
-        sequelize.query(`INSERT INTO users (username, password_hash, picture) VALUES ('${req.body.username}', '${hash}', 'https://freesvg.org/img/Colorful-Bird-Silhouette.png')`)
+        sequelize.query(`INSERT INTO users (username, password_hash, picture, backgroundimg) VALUES ('${req.body.username}', '${hash}', 'https://freesvg.org/img/Colorful-Bird-Silhouette.png', 'https://vcdn.bergfex.at/images/resized/76/819c726eeadb1576_dd17e5de1d43fa3c@2x.jpg')`)
     .then(dbRes => {res.status(201).send({hash: hash, icon: "https://freesvg.org/img/Colorful-Bird-Silhouette.png"})})
     })
 })
@@ -49,9 +49,8 @@ app.get("/api/login", (req, res) => {
     .then(dbRes => {
         if(dbRes[0].length !== 0){
             bcrypt.compare(password, dbRes[0][0].password_hash).then((result) => {
-                console.log(result)
                 if(result){
-                    res.status(200).send({icon: dbRes[0][0].picture, username: dbRes[0][0].username})
+                    res.status(200).send({username: dbRes[0][0].id})
                 }else{
                     res.status(200).send("incorrect password")
                 }
@@ -62,5 +61,21 @@ app.get("/api/login", (req, res) => {
     })
 })
 
+//CHIRP MAKER API
+
+app.post("/api/chirpmaker", (req, res) => {
+    sequelize.query(`SELECT id FROM users WHERE username = '${req.body.author}'`)
+    .then(dbRes => {
+        sequelize.query(`INSERT INTO chirps (author_id, content, likes) VALUES (${dbRes[0][0].id}, '${req.body.chirp}', 0)`)
+        .then(dbRes => {res.status(200).send(true)})
+    })
+})
+
+//LOAD USER API
+
+app.get("/api/userload/:userid", (req, res) => {
+    sequelize.query(`SELECT * FROM users WHERE id = '${req.params.userid}'`)
+    .then(dbRes => {res.status(200).send(dbRes[0][0])})
+})
 
 app.listen(process.env.PORT || 3001)
