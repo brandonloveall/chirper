@@ -34,7 +34,6 @@ app.get("/c/*", (req, res) => {
 //SIGN UP API
 
 app.get("/api/usernamecheck/:username", (req, res) => {
-    console.log("hi")
     sequelize.query(`SELECT username FROM users WHERE username = '${req.params.username}'`).then((dbRes) => {res.status(200).send(dbRes[0])})
 })
 
@@ -81,6 +80,38 @@ app.post("/api/chirpmaker", (req, res) => {
 app.get("/api/userload/:userid", (req, res) => {
     sequelize.query(`SELECT * FROM users WHERE id = '${req.params.userid}'`)
     .then(dbRes => {res.status(200).send(dbRes[0][0])})
+})
+
+app.get("/api/chirpload/:userid", (req, res) => {
+    sequelize.query(`SELECT chirps.id, author_id, content, postdate, likes, username, picture FROM chirps JOIN users ON users.id = chirps.author_id WHERE author_id = ${req.params.userid} ORDER BY chirps.postdate LIMIT 10`)
+    .then(dbRes => {res.status(200).send(dbRes[0])})
+})
+
+//LIKE CHIRPS API
+
+app.put("/api/likechirp", (req, res) => {
+    sequelize.query(`UPDATE chirps SET likes = likes + 1 WHERE id = ${req.body.id}`)
+    .then(dbRes => {
+        sequelize.query(`INSERT INTO users_chirps (user_id, chirp_id) VALUES (${req.body.userid}, ${req.body.id})`).then(dbRes2 => {res.status(200).send(true)})
+    })
+})
+
+app.put("/api/unlikechirp", (req, res) => {
+    sequelize.query(`UPDATE chirps SET likes = likes - 1 WHERE id = ${req.body.id}`)
+    .then(dbRes => {
+        sequelize.query(`DELETE FROM users_chirps WHERE user_id = ${req.body.userid} AND chirp_id = ${req.body.id}`)
+    })
+})
+
+app.get("/api/checkifliked", (req, res) => {
+    sequelize.query(`SELECT id FROM users_chirps WHERE user_id = ${req.query.user} AND chirp_id = ${req.query.id}`)
+    .then(dbRes => {res.status(200).send(dbRes[0])})
+})
+
+//DELETE AND EDIT CHIRPS API
+
+app.delete("/api/deletechirp/:id", (req, res) => {
+    sequelize.query(`DELETE FROM chirps WHERE id = ${req.params.id}`).then((dbRes) => {res.status(200).send(true)})
 })
 
 app.listen(process.env.PORT || 3001)
