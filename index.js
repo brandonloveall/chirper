@@ -124,4 +124,16 @@ app.delete("/api/deletechirp/:id", (req, res) => {
     sequelize.query(`DELETE FROM chirps WHERE id = ${req.params.id}`).then((dbRes) => {res.status(200).send(true)})
 })
 
+//SEARCH USERS API
+
+app.get("/api/search", (req, res) => {
+    if(req.query.searchstring === ""){
+        res.status(200).send([])
+    }else{
+        sequelize.query(`SELECT * FROM users WHERE username LIKE '${req.query.searchstring}%'`)
+        .then(dbRes => {res.status(200).send(dbRes[0])})
+    }
+
+})
+
 app.listen(process.env.PORT || 3001)
