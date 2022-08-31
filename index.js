@@ -88,7 +88,7 @@ app.get("/api/userload/:username", (req, res) => {
 })
 
 app.get("/api/chirpload/:username", (req, res) => {
-    sequelize.query(`SELECT chirps.id, author_id, content, postdate, likes, username, picture FROM chirps JOIN users ON users.id = chirps.author_id WHERE users.username = '${req.params.username}' ORDER BY chirps.postdate LIMIT 10`)
+    sequelize.query(`SELECT chirps.id, author_id, content, timestamp, likes, username, picture FROM chirps JOIN users ON users.id = chirps.author_id WHERE users.username = '${req.params.username}' ORDER BY chirps.timestamp DESC LIMIT 10`)
     .then(dbRes => {res.status(200).send(dbRes[0])})
 })
 
@@ -134,6 +134,40 @@ app.get("/api/search", (req, res) => {
         .then(dbRes => {res.status(200).send(dbRes[0])})
     }
 
+})
+
+//FOLLOW API
+
+app.post("/api/follow", (req, res) => {
+    sequelize.query(`INSERT INTO follower_following (follower_id, following_id) VALUES ((SELECT id FROM users WHERE username = '${req.body.follower}'), (SELECT id FROM users WHERE username = '${req.body.following}'))`)
+    .then(dbRes => {res.status(200).send(true)})
+})
+
+app.delete("/api/unfollow", (req, res) => {
+    sequelize.query(`DELETE FROM follower_following WHERE follower_id = (SELECT id FROM users WHERE username = '${req.query.follower}') AND following_id = (SELECT id FROM users WHERE username = '${req.query.following}')`)
+    .then(dbRes => {res.status(200).send(true)})
+})
+
+app.get("/api/checkfollow", (req, res) => {
+    sequelize.query(`SELECT * FROM follower_following WHERE follower_id = (SELECT id FROM users WHERE username = '${req.query.follower}') AND following_id = (SELECT id FROM users WHERE username = '${req.query.following}')`)
+    .then(dbRes => {
+        if(dbRes[0].length === 0){
+            res.status(200).send(false)
+        }else{
+            res.status(200).send(true)
+        }
+    })
+})
+
+//LOAD CHIRPS API
+app.get("/api/getfollowedchirps/:userid", (req, res) => {
+    sequelize.query(`
+    SELECT chirps.content, timestamp, chirps.id, chirps.likes, users.username, users.picture
+    FROM chirps
+    JOIN follower_following ON follower_following.following_id = chirps.author_id
+    JOIN users ON follower_following.following_id = users.id
+    WHERE follower_following.follower_id = ${req.params.userid}
+    `).then(dbRes => {res.status(200).send(dbRes[0])})
 })
 
 app.listen(process.env.PORT || 3001)
