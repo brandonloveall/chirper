@@ -159,7 +159,7 @@ app.get("/api/checkfollow", (req, res) => {
     })
 })
 
-//LOAD CHIRPS API
+//LOAD FOLLOWED CHIRPS API
 app.get("/api/getfollowedchirps/:userid", (req, res) => {
     sequelize.query(`
     SELECT chirps.content, timestamp, chirps.id, chirps.likes, users.username, users.picture
