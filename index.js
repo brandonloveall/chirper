@@ -124,6 +124,11 @@ app.delete("/api/deletechirp/:id", (req, res) => {
     sequelize.query(`DELETE FROM chirps WHERE id = ${req.params.id}`).then((dbRes) => {res.status(200).send(true)})
 })
 
+app.put("/api/chirpeditor/:id", (req, res) => {
+    sequelize.query(`UPDATE chirps SET content = '${req.body.chirp}' WHERE id = ${req.params.id} `)
+    .then(dbRes => {res.status(200).send(true)})
+})
+
 //SEARCH USERS API
 
 app.get("/api/search", (req, res) => {
