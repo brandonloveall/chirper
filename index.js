@@ -109,7 +109,7 @@ app.put("/api/unlikechirp", (req, res) => {
 })
 
 app.get("/api/checkifliked", (req, res) => {
-    if(req.params.id === undefined){
+    if(req.query.id === undefined){
         res.status(200).send()
     }else{
         sequelize.query(`SELECT id FROM users_chirps WHERE user_id = ${req.query.user} AND chirp_id = ${req.query.id}`)
@@ -173,6 +173,23 @@ app.get("/api/getfollowedchirps/:userid", (req, res) => {
     JOIN users ON follower_following.following_id = users.id
     WHERE follower_following.follower_id = ${req.params.userid}
     `).then(dbRes => {res.status(200).send(dbRes[0])})
+})
+
+//DELETE ACCOUNT AND RESET PICTURES
+app.delete("/api/reset/:userid", (req, res) => {
+    if(req.query.type === "background"){
+        sequelize.query(`UPDATE users SET backgroundimg = 'https://vcdn.bergfex.at/images/resized/76/819c726eeadb1576_dd17e5de1d43fa3c@2x.jpg' WHERE id = ${req.params.userid}`)
+        .then(dbRes => {res.status(200).send(true)})
+    }
+    else if(req.query.type === "icon"){
+        sequelize.query(`UPDATE users SET picture = 'https://freesvg.org/img/Colorful-Bird-Silhouette.png' WHERE id = ${req.params.userid}`)
+        .then(dbRes => {res.status(200).send(true)})
+    }
+})
+
+app.delete(`/api/deleteaccount/:userid`, (req, res) => {
+    sequelize.query(`DELETE FROM users WHERE id = ${req.params.userid}`)
+    .then(dbRes => {res.status(200).send(true)})
 })
 
 app.listen(process.env.PORT || 3001)
