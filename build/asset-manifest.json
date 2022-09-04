@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.6f25ade0.css",
-    "main.js": "/static/js/main.a2feb344.js",
+    "main.js": "/static/js/main.8e8c82cd.js",
     "static/media/istockphoto-1066158612-612x612.jpg": "/static/media/istockphoto-1066158612-612x612.984f481478a1de78cae3.jpg",
     "static/media/bird-svgrepo-com.svg": "/static/media/bird-svgrepo-com.7a0d35633edcd6a06eac78f43edd60d9.svg",
     "static/media/gear-svgrepo-com.svg": "/static/media/gear-svgrepo-com.fd0ff9e11f83d9a9967c4641aef8798e.svg",
@@ -15,10 +15,10 @@
     "static/media/icons8-search.svg": "/static/media/icons8-search.e0b696f327468be32ac4c5e19adcf6ce.svg",
     "static/media/person-svgrepo-com.svg": "/static/media/person-svgrepo-com.48e67e5df092a074dd2bb4e34af69f16.svg",
     "main.6f25ade0.css.map": "/static/css/main.6f25ade0.css.map",
-    "main.a2feb344.js.map": "/static/js/main.a2feb344.js.map"
+    "main.8e8c82cd.js.map": "/static/js/main.8e8c82cd.js.map"
   },
   "entrypoints": [
     "static/css/main.6f25ade0.css",
-    "static/js/main.a2feb344.js"
+    "static/js/main.8e8c82cd.js"
   ]
 }
