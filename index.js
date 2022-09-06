@@ -192,4 +192,20 @@ app.delete(`/api/deleteaccount/:userid`, (req, res) => {
     .then(dbRes => {res.status(200).send(true)})
 })
 
+//CHANGE ICON AND BACKGROUND AND BIO
+app.put("/api/changeicon/:userid", (req, res) => {
+    sequelize.query(`UPDATE users SET picture = '${req.body.icon}' WHERE id = ${req.params.userid}`)
+    .then(dbRes => {res.status(200).send(true)})
+})
+
+app.put("/api/changebackground/:userid", (req, res) => {
+    sequelize.query(`UPDATE users SET backgroundimg = '${req.body.background}' WHERE id = ${req.params.userid}`)
+    .then(dbRes => {res.status(200).send(true)})
+})
+
+app.put("/api/changebio/:userid", (req, res) => {
+    sequelize.query(`UPDATE users SET userbio = '${req.body.bio}' WHERE id = ${req.params.userid}`)
+    .then(dbRes => {res.status(200).send(true)})
+})
+
 app.listen(process.env.PORT || 3001)
