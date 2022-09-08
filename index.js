@@ -75,6 +75,11 @@ app.post("/api/chirpmaker", (req, res) => {
     })
 })
 
+app.get("/api/loadchirpmaker/:userid", (req, res) => {
+    sequelize.query(`SELECT picture FROM users WHERE id = ${req.params.userid}`)
+    .then(dbRes => {res.status(200).send(dbRes[0][0])})
+})
+
 //LOAD USER API
 
 app.get("/api/userload/:username", (req, res) => {
