@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.cd8feb22.css",
-    "main.js": "/static/js/main.05520a49.js",
+    "main.js": "/static/js/main.4ae660a8.js",
     "static/media/bird-svgrepo-com.svg": "/static/media/bird-svgrepo-com.7a0d35633edcd6a06eac78f43edd60d9.svg",
     "static/media/gear-svgrepo-com.svg": "/static/media/gear-svgrepo-com.fd0ff9e11f83d9a9967c4641aef8798e.svg",
     "static/media/heart-svgrepo-com.svg": "/static/media/heart-svgrepo-com.4e0846b50d43c51cfeb407e113542275.svg",
@@ -14,10 +14,10 @@
     "static/media/icons8-search.svg": "/static/media/icons8-search.e0b696f327468be32ac4c5e19adcf6ce.svg",
     "static/media/person-svgrepo-com.svg": "/static/media/person-svgrepo-com.48e67e5df092a074dd2bb4e34af69f16.svg",
     "main.cd8feb22.css.map": "/static/css/main.cd8feb22.css.map",
-    "main.05520a49.js.map": "/static/js/main.05520a49.js.map"
+    "main.4ae660a8.js.map": "/static/js/main.4ae660a8.js.map"
   },
   "entrypoints": [
     "static/css/main.cd8feb22.css",
-    "static/js/main.05520a49.js"
+    "static/js/main.4ae660a8.js"
   ]
 }
