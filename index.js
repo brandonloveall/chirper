@@ -110,6 +110,7 @@ app.put("/api/unlikechirp", (req, res) => {
     sequelize.query(`UPDATE chirps SET likes = likes - 1 WHERE id = ${req.body.id}`)
     .then(dbRes => {
         sequelize.query(`DELETE FROM users_chirps WHERE user_id = ${req.body.userid} AND chirp_id = ${req.body.id}`)
+        .then(dbRes => (res.status(200).send(true)))
     })
 })
 
