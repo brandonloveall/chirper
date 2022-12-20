@@ -13,7 +13,6 @@ const sequelize = new Sequelize(process.env.DATABASE_URL, {
     }
 })
 const bcrypt = require("bcryptjs")
-const e = require("express")
 
 app.use(express.static(path.join(__dirname, "build")))
 app.use(cors())
